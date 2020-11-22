@@ -1,5 +1,4 @@
 #include "views/SystemView.h"
-
 #include "animations/LambdaAnimation.h"
 #include "guis/GuiMsgBox.h"
 #include "views/UIModeController.h"
@@ -8,6 +7,7 @@
 #include "Settings.h"
 #include "SystemData.h"
 #include "Window.h"
+#include <iostream>
 
 // buffer values for scrolling velocity (left, stopped, right)
 const int logoBuffersLeft[] = { -5, -2, -1 };
@@ -128,6 +128,7 @@ void SystemView::populate()
 
 void SystemView::goToSystem(SystemData* system, bool animate)
 {
+
 	setCursor(system);
 
 	if(!animate)
@@ -144,6 +145,7 @@ bool SystemView::input(InputConfig* config, Input input)
 			ViewController::get()->reloadAll();
 			return true;
 		}
+
 
 		switch (mCarousel.type)
 		{
@@ -252,6 +254,20 @@ void SystemView::onCursorChanged(const CursorState& /*state*/)
 	unsigned int gameCount = getSelected()->getDisplayedGameCount();
 
 	// also change the text after we've fully faded out
+    const ThemeData::ThemeElement* marqueElem = getSelected()->getTheme()->getElement("system", "marquee", "image");
+	if(marqueElem)
+		{
+			const std::string path = marqueElem->get<std::string>("path");
+		    std::cout << path;
+			std::cout << '#';
+			std::cout.flush();
+		}else{
+			const std::string path = "UNKNOWN";
+		    std::cout << path;
+			std::cout << '#';
+			std::cout.flush();
+		}
+	//bool success = Utils::FileSystem::externalCommand(path);
 	setAnimation(infoFadeOut, 0, [this, gameCount] {
 		std::stringstream ss;
 
