@@ -1,14 +1,14 @@
 #include "views/gamelist/VideoGameListView.h"
-
 #include "animations/LambdaAnimation.h"
 #ifdef _RPI_
 #include "components/VideoPlayerComponent.h"
 #endif
 #include "components/VideoVlcComponent.h"
-#include "utils/FileSystemUtil.h"
 #include "views/ViewController.h"
+#include <iostream>
 #ifdef _RPI_
 #include "Settings.h"
+#include "SystemData.h"
 #endif
 
 VideoGameListView::VideoGameListView(Window* window, FileData* root) :
@@ -246,7 +246,26 @@ void VideoGameListView::initMDValues()
 void VideoGameListView::updateInfoPanel()
 {
 	FileData* file = (mList.size() == 0 || mList.isScrolling()) ? NULL : mList.getSelected();
-
+	
+	std::string gameMarquee;
+	
+	if (!mList.isScrolling()){
+		gameMarquee = mList.getSelected()->getMarqueePath();
+		if (gameMarquee==""){
+			SystemData* system = mList.getSelected()->getSystem();
+			const ThemeData::ThemeElement* marqueElem = system->getTheme()->getElement("system", "marquee", "image"); 
+			if(marqueElem)
+			{
+				gameMarquee = marqueElem->get<std::string>("path");
+			}
+		}
+		if (!(gameMarquee=="")){
+			std::cout << gameMarquee+"#";
+			std::cout.flush();
+			gameMarquee.clear();		
+		}
+	}
+	
 	Utils::FileSystem::removeFile(getTitlePath());
 
 	bool fadingOut;
@@ -318,6 +337,7 @@ void VideoGameListView::updateInfoPanel()
 			comp->setAnimation(new LambdaAnimation(func, 150), 0, nullptr, fadingOut);
 		}
 	}
+
 }
 
 void VideoGameListView::launch(FileData* game)
