@@ -8,11 +8,11 @@ HOWTO (for RPI4):
 
 Clone Git & Compile Emulationstation:
 
-`cd`
-`git clone --recursive https://github.com/RetroPie/EmulationStation.git`
-`cd EmulationStation`
-`cmake -DUSE_MESA_GLES=On -DRPI=On  .`
-`make`
+`cd`  
+`git clone --recursive https://github.com/RetroPie/EmulationStation.git`  
+`cd EmulationStation`  
+`cmake -DUSE_MESA_GLES=On -DRPI=On  .`  
+`make`  
 
 Copy `emu.py` to your home directory:
 
@@ -30,7 +30,11 @@ Edit your autostart and change
 
 `emulationstation #auto` (or something similar) to `/home/pi/emu/py`
 
-reboot
+Oh, and you will net to get fim (image viewer)
+
+`sudo apt install fim` 
+
+`reboot`
 
 Considerations:
 ===============
