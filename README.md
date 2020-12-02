@@ -16,11 +16,11 @@ Clone Git & Compile Emulationstation:
 
 Copy `emu.py` to your home directory:
 
-`cp /home/pi/EmulationStation/emu.py /gome/pi/.`
+`cp /home/pi/EmulationStation/emu.py /home/pi/.`
 
 Copy `default.jpg` to your home directory:
 
-`cp /home/pi/EmulationStation/default.jpg /gome/pi/.`
+`cp /home/pi/EmulationStation/default.jpg /home/pi/.`
 
 Backup autostart (so you can go to your normal emulationstation afterwards)
 
