@@ -28,7 +28,7 @@ Backup autostart (so you can go to your normal emulationstation afterwards)
 
 Edit your autostart and change 
 
-`emulationstation #auto` (or something similar) to `/home/pi/emu/py`
+`emulationstation #auto` (or something similar) to `/home/pi/emu.py`
 
 Oh, and you will net to get fim (image viewer)
 
