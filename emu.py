@@ -5,6 +5,7 @@ import sys
 import os
 import signal
 
+os.system('clear')
 firstrun = True
 defaultimage = '/home/pi/default.jpg'
 process = subprocess.Popen('/home/pi/EmulationStation/emulationstation', stdout=subprocess.PIPE)
@@ -28,19 +29,21 @@ for c in iter(lambda: process.stdout.read(1), ''):  # replace '' with b'' for Py
       except:
          index = 0
       if output != lastimage and output!='':
-         if pid!=0:
-            try:
-               os.kill(pid, signal.SIGKILL) #or signal.SIGKILL
-            except:
-               index = 1
          if output == "UNKNOWN":
             output = defaultimage
-         try:
+         if '/images/' in output:
+            output = output.replace('image','marquee')
+	 try:
             command = ["fim","--device","7","-q","-w",output]
             proc2 = subprocess.Popen (command, stdin=subprocess.PIPE, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
             lastimage = output
             output =''
-            pid = proc2.pid
+            if pid!=0:
+               try:
+                  os.kill(pid, signal.SIGTERM) #or signal.SIGKILL
+               except:
+                  index = 1
+               pid = proc2.pid
          except Exception as e:
             pid = 0
       else:
