@@ -15,6 +15,7 @@
 #include "SystemData.h"
 #include <unordered_map>
 #include <time.h>
+#include <iostream>
 #define FADE_TIME 			300
 
 SystemScreenSaver::SystemScreenSaver(Window* window) :
@@ -86,6 +87,10 @@ void SystemScreenSaver::startScreenSaver()
 
 		if (!path.empty() && Utils::FileSystem::exists(path))
 		{
+	    	std::cout << path;	
+			std::cout << '#';
+			std::cout.flush();
+
 #ifdef _RPI_
 			// Create the correct type of video component
 			if (Settings::getInstance()->getBool("ScreenSaverOmxPlayer"))
@@ -148,7 +153,10 @@ void SystemScreenSaver::startScreenSaver()
 		mImageScreensaver->setImage(path);
 		mImageScreensaver->setOrigin(0.5f, 0.5f);
 		mImageScreensaver->setPosition(Renderer::getScreenWidth() / 2.0f, Renderer::getScreenHeight() / 2.0f);
-
+    	std::cout << path;	
+		std::cout << '#';
+		std::cout.flush();
+		
 		if (Settings::getInstance()->getBool("SlideshowScreenSaverStretch"))
 		{
 			mImageScreensaver->setResize((float)Renderer::getScreenWidth(), (float)Renderer::getScreenHeight());
