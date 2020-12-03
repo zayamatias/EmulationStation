@@ -33,7 +33,12 @@ for c in iter(lambda: process.stdout.read(1), ''):  # replace '' with b'' for Py
             output = defaultimage
          if '/images/' in output:
             output = output.replace('image','marquee')
-	 try:
+         if '/videos/' in output:
+            output = output.replace('video','marquee')
+            output = output.replace('.mp4','.png')
+         try:
+            if not os.path.isfile(output):
+                output = defaultimage
             command = ["fim","--device","7","-q","-w",output]
             proc2 = subprocess.Popen (command, stdin=subprocess.PIPE, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
             lastimage = output
